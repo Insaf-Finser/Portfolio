@@ -1,13 +1,23 @@
 import { useState, useEffect } from 'react'
 import './index.css'
+import BackgroundTextMotion from './components/BackgroundTextMotion'
 
 const App = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' })
   const [submitted, setSubmitted] = useState(false)
   const [navOpen, setNavOpen] = useState(false)
+  const [scrollIndicatorOpacity, setScrollIndicatorOpacity] = useState(1)
 
   useEffect(() => {
-    
+    window.scrollTo(0, 0)
+    const handleScroll = () => {
+      const scrolled = window.scrollY
+      const maxScroll = 300
+      const opacity = Math.max(0, 1 - scrolled / maxScroll)
+      setScrollIndicatorOpacity(opacity)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   const handleFormChange = (e) => {
@@ -55,6 +65,7 @@ const App = () => {
 
   return (
     <>
+      <BackgroundTextMotion/>
 
       <nav className="navbar">
         <button
@@ -156,7 +167,10 @@ const App = () => {
               <img src="./src/assets/mypic.jpg" className='hero-image' />
             </div>
           </div>
-          
+          <div className="scroll-down-indicator" style={{ '--scroll-opacity': scrollIndicatorOpacity }}>
+            <icon className="scroll-left">← </icon>
+            <span className="scroll-down-text">Scroll Down</span>
+          </div>
           
         </section>
 

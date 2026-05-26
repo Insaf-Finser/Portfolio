@@ -297,6 +297,7 @@ section::before {
 .hero-social-links a:hover {
   background: rgba(212, 175, 55, 0.2);
   border-color: var(--accent);
+  transform: translateY(-1px) rotate(15deg);
   box-shadow: 0 10px 25px rgba(212, 175, 55, 0.2);
 }
 
@@ -337,6 +338,8 @@ section::before {
 .social-links-list ul {
   padding: 0.3rem;
   display: flex;
+  padding-left: 0;
+  margin-left: 0;
   /*reduce size of icons*/
   
 }
@@ -422,7 +425,7 @@ section::before {
   align-items: center;
   justify-content: center;
   gap: 2rem;
-  padding: 0 2rem;
+  padding: 0 1rem;
 }
 
 .hero-image-container {
@@ -446,6 +449,39 @@ section::before {
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+.scroll-down-indicator {
+  position: absolute;
+  bottom:100px;
+  left: 0.5%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transform: rotate(-90deg);
+  padding:0;
+  opacity: var(--scroll-opacity, 1);
+  transition: opacity 0.2s linear;
+
+  @media (max-width: 768px) {
+    display: none;
+
+  }
+}
+
+
+
+
+
+.scroll-down-text {
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  letter-spacing: 2px;
+}
+.scroll-left {
+  font-size: 1rem;
+  color: var(--accent);
+  animation: bounce 2s infinite;
 }
 
 /* Navigation */
@@ -906,7 +942,7 @@ footer {
 .social-links a:hover {
   background: rgba(212, 175, 55, 0.2);
   border-color: var(--accent);
-  transform: translateY(-4px);
+  transform: translateY(-4px) rotate(15deg);
   box-shadow: 0 10px 25px rgba(212, 175, 55, 0.2);
 }
 
