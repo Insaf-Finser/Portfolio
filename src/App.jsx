@@ -58,8 +58,9 @@ const App = () => {
     }
   ]
 
-  const skills = ['React', 'Vue.js', 'JavaScript', 'TypeScript', 'Node.js', 'Express', 'MongoDB', 'PostgreSQL', 'Firebase', 'Docker', 'AWS', 'GraphQL', 'REST API', 'Tailwind CSS', 'Next.js', 'Python']
+  const skills = ['React', 'Vue.js', 'JavaScript', 'TypeScript', 'Node.js', 'Express', 'MongoDB', 'Firebase', 'Docker', 'AWS', 'GraphQL', 'REST API', 'Tailwind CSS', 'Next.js', 'Python']
 
+  const courses = ['DSA', 'AI', 'ML', 'Web Development', 'DBMS']
   
   
 
@@ -85,7 +86,6 @@ const App = () => {
           <li><a href="#home" onClick={closeNav}>Home</a></li>
           <li><a href="#about" onClick={closeNav}>About</a></li>
           <li><a href="#projects" onClick={closeNav}>Projects</a></li>
-          <li><a href="#skills" onClick={closeNav}>Skills</a></li>
           <li><a href="#contact" onClick={closeNav}>Contact</a></li>
         </ul>
         {navOpen && <div className="menu-overlay" onClick={closeNav} />}
@@ -117,12 +117,23 @@ const App = () => {
                       <span style={{ marginLeft: '0'}}>LinkedIn</span>
                     </ul>
                     <ul>
-                      <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" title="Twitter" aria-label="Twitter">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2s9 5 20 5a9.5 9.5 0 00-9-5.5c4.75 2.25 7-7 7-7a10.6 10.6 0 01-10 5.5"/>
-                        </svg>
-                      </a>
-                      <span style={{ marginLeft: '0' }}>Twitter</span>
+                      <a
+  href="https://instagram.com"
+  target="_blank"
+  rel="noopener noreferrer"
+  title="Instagram"
+  aria-label="Instagram"
+>
+  <svg
+    width="28"
+    height="28"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+  >
+    <path d="M7.75 2C4.57 2 2 4.57 2 7.75v8.5C2 19.43 4.57 22 7.75 22h8.5C19.43 22 22 19.43 22 16.25v-8.5C22 4.57 19.43 2 16.25 2h-8.5zm0 2h8.5A3.75 3.75 0 0120 7.75v8.5A3.75 3.75 0 0116.25 20h-8.5A3.75 3.75 0 014 16.25v-8.5A3.75 3.75 0 017.75 4zm8.75 1a1.25 1.25 0 100 2.5 1.25 1.25 0 000-2.5zM12 7a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6z"/>
+  </svg>
+</a>
+                      <span style={{ marginLeft: '0' }}>Instagram</span>
                     </ul>
                     <ul>
                       <a href="mailto:insaffinser@gmail.com" title="Email" aria-label="Email">
@@ -176,10 +187,42 @@ const App = () => {
 
         {/* About Section */}
         <section id="about" className="about">
-          <div className="about-content">
-            <h2>About Me</h2>
-           
+          <div className="about-content" data-aos="fade-up" data-aos-duration="1000" data-aos-once="true" style={{display:'flex'}}>
+            <img src="./src/assets/GradPic.jpeg" alt="Background" className="about-background" />
+            <div>
+              <h2>About Me</h2>
+              <p>I’m a passionate Full-Stack Developer and AI enthusiast focused on building intelligent, interactive, and user-centered digital experiences. I specialize in React, Flutter, Node.js, and Python, with experience creating AI-powered applications, secure communication systems, and immersive web platforms. I enjoy transforming complex ideas into clean, scalable, and visually engaging products that solve real-world problems.
+              </p>
+            </div>
+            
           </div>
+          <div className="ab" style={{display:'flex' , gap:'0' , marginRight:'0'}}>
+            <div className="about-education">
+              <h2 style={{padding:'0',margin:'0',paddingLeft:'20px',paddingBottom:'20px'}}>Education</h2>
+              <p style={{marginBottom:'1rem'}}><span style={{color:'#eee3c0', fontSize:'1.8rem'}}>BTech in Computer Science and Engineering,</span> <br></br><span style={{paddingLeft:'20px'}}>Amal Jyothi College of Engineering, Kottayam, Kerala</span><br></br><span style={{paddingLeft:'20px' , fontWeight:'800' ,color:'#b5ae9e'}}>(2022-2026)</span>  </p>
+              <p>Relevant Coursework: </p>
+              <div className="skills-grid" style={{gap:'0.6rem',margin:'30px',marginRight:'10px', marginTop:'0',alignItems:'start', maxWidth:'32vw'}}>
+                {courses.map((course, idx) => (
+                  <div key={idx} className="skill-item" style={{fontSize:'0.9rem' , padding:'1rem 1rem' ,maxWidth:'300px' ,maxHeight:'50px',gap:'0.5rem',margin:'0' ,display:'flex',alignItems:'center'}}>
+                    {course}
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            <div className="about-skills" >
+              <h2 style={{padding:'0',margin:'0',paddingLeft:'20px',paddingBottom:'20px'}}>Skills</h2>
+            <div className="skills-grid">
+              {skills.map((skill, idx) => (
+                <div key={idx} className="skill-item">
+                  {skill}
+                </div>
+              ))}
+            </div>
+            
+            </div>
+          </div>
+          
         </section>
 
         {/* Projects Section */}
@@ -195,18 +238,6 @@ const App = () => {
                     <span key={i} className="tag">{tag}</span>
                   ))}
                 </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Skills Section */}
-        <section id="skills" className="skills">
-          <h2>Skills & Technologies</h2>
-          <div className="skills-grid">
-            {skills.map((skill, idx) => (
-              <div key={idx} className="skill-item">
-                {skill}
               </div>
             ))}
           </div>

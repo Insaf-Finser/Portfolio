@@ -4,6 +4,8 @@
   box-sizing: border-box;
 }
 
+
+
 :root {
   --bg-dark: #1d1d1d;
   --bg-secondary: #1a1a1a;
@@ -513,6 +515,7 @@ nav a {
   position: relative;
   text-transform: uppercase;
   letter-spacing: 1px;
+  transform: translateY(80px);
 }
 
 
@@ -579,10 +582,33 @@ button.secondary:hover {
 }
 
 .about-content {
-  max-width: 900px;
+  max-width: 81vw;
+  max-height: 70vh;
+
   text-align: center;
   position: relative;
   z-index: 1;
+  border: 1px solid var(--accent) ; 
+  border-radius: 25px;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    max-width: 90vw;
+    max-height: none;
+  }
+  
+}
+
+.about-background {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 220px;
+  height: 100%;
+  object-fit:fill;
+  z-index: -1;
+  padding:40px;
+  padding-Right:0;
+  
 }
 
 .about h2 {
@@ -590,6 +616,10 @@ button.secondary:hover {
   margin-bottom: 2rem;
   color: var(--accent);
   letter-spacing: -1px;
+  margin-top: 30px;
+  text-align:start;
+  padding-left:40px;
+  padding-bottom: 0;
 }
 
 .about p {
@@ -597,6 +627,27 @@ button.secondary:hover {
   color: var(--text-secondary);
   margin-bottom: 1.5rem;
   line-height: 1.8;
+  text-align:justify;
+  padding: 0.5rem 2.5rem;
+  padding-top:0;
+  
+}
+
+.about-skills{
+  border: 1px solid var(--accent);
+  border-radius:25px;
+  padding:30px;
+  margin:0;
+  padding-bottom: 30px;
+  margin-left:20px;
+  max-width: 40vw;
+  max-height: 70vh;
+  
+  @media (max-width: 1268px) {
+    max-width: 40vw;
+    max-height: fit-content;
+  }
+  
 }
 
 /* Projects Section */
@@ -704,15 +755,17 @@ button.secondary:hover {
   font-size: 3rem;
   margin-bottom: 3rem;
   color: var(--accent);
-  letter-spacing: -1px;
+  letter-spacing: -1px; 
+  text-align: start;
+  padding: 0;
 }
 
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-  gap: 1.5rem;
-  width: 100%;
-  max-width: 1000px;
+  gap: 1rem;
+  width: 98%;
+  max-width: 900px;
   position: relative;
   z-index: 1;
 }
@@ -720,7 +773,7 @@ button.secondary:hover {
 .skill-item {
   background: rgba(26, 26, 26, 0.6);
   border: 1px solid rgba(212, 175, 55, 0.2);
-  padding: 2rem 1rem;
+  padding:0.5rem 0.25rem;
   border-radius: 12px;
   text-align: center;
   transition: all 0.3s ease;
@@ -729,6 +782,76 @@ button.secondary:hover {
   color: var(--text-primary);
   position: relative;
   overflow: hidden;
+
+}
+
+.ab{
+  display:flex;
+  gap: 0;
+  padding:0;
+  justify-content: center;
+  
+  margin:0;
+  margin-top:40px;
+  align-self: center;
+  text-align: left;
+
+  @media (max-width: 768px) {
+    max-height:fit-content;
+  }
+
+  
+}
+
+.about-education{
+  
+  width: 40vw;
+  padding:0;
+  margin:0px;
+  border: 1px solid var(--accent);
+  border-radius:25px;
+  text-align: left;
+
+  @media (max-width: 768px) {
+    
+    width: 40vw;
+    text-align: left;
+    justify-content: start;
+    align-self: start;
+    font-size: 0.5rem;
+
+  }
+}
+
+.about-education h2{
+  text-align:left;
+  font-size: 2rem;
+  
+  @media (max-width: 768px)  {
+    font-size: 0.5rem;
+
+  }
+}
+
+.about-education span{
+  text-align:left;
+  font-size: 1.15rem;
+  
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+
+  }
+}
+
+.about-education p{
+  text-align:left;
+  padding:0.5rem 1.5rem;
+  font-size: 1rem;
+  
+  @media (max-width: 768px) {
+    font-size: 1rem;
+
+  }
 }
 
 .skill-item::before {
@@ -745,7 +868,6 @@ button.secondary:hover {
 .skill-item:hover {
   background: rgba(26, 26, 26, 0.8);
   border-color: var(--accent);
-  transform: translateY(-8px);
   box-shadow: 0 15px 40px rgba(212, 175, 55, 0.15);
 }
 

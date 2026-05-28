@@ -40,6 +40,7 @@ const BackgroundTextMotion = () => {
           pointer-events: none;
           z-index: 0;
           transition: opacity 0.3s ease-out;
+          animation: curveFadeIn 1.8s ease-out forwards;
         }
 
         .background-text-motion__svg {
@@ -61,7 +62,25 @@ const BackgroundTextMotion = () => {
           text-transform: uppercase;
           font-family: sans-serif;
         }
+
+        
+
+        @keyframes curveFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+                filter: blur(12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0);
+            }
+        }
       `}</style>
+
+      
 
       <svg
         className="background-text-motion__svg"
