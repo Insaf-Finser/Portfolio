@@ -121,7 +121,7 @@ const handleFormSubmit = async (e) => {
 
   const downloadResume = () => {
   const link = document.createElement('a')
-  link.href = './public/assets/Resume.pdf'
+  link.href = 'https://res.cloudinary.com/dwvzfckyd/image/upload/v1780302192/Insaf_Finser_Resume_CS_qjhqfy.jpg'
   link.download = 'Insaf_Finser_Resume.pdf'
   link.click()
 }
@@ -222,7 +222,7 @@ const handleFormSubmit = async (e) => {
                       <span style={{ marginLeft: '0' }}>Email</span>
                     </ul>
                     <ul>
-                      <a href="./src/assets/Resume.pdf" target="_blank" rel="noopener noreferrer" title="Resume" aria-label="Resume">
+                      <a href="https://res.cloudinary.com/dwvzfckyd/image/upload/v1780302192/Insaf_Finser_Resume_CS_qjhqfy.jpg" target="_blank" rel="noopener noreferrer" title="Resume" aria-label="Resume">
                         <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
                           <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/>
                           <polyline points="14 2 14 8 20 8" style={{fill: 'none', stroke: 'currentColor', strokeWidth: 2}}/>
@@ -261,7 +261,7 @@ const handleFormSubmit = async (e) => {
               </div>
             </div>
             <div className="hero-image-container">
-              <img src="./public/assets/mypic.jpg" className='hero-image' />
+              <img src="https://res.cloudinary.com/dwvzfckyd/image/upload/v1780301606/my_pic_tue4tl.jpg" className='hero-image' />
             </div>
           </div>
           <div className="scroll-down-indicator" style={{ '--scroll-opacity': scrollIndicatorOpacity }}>
@@ -274,7 +274,7 @@ const handleFormSubmit = async (e) => {
         {/* About Section */}
         <section id="about" className="about">
           <div className="about-content" data-aos="fade-up" data-aos-duration="1000" data-aos-once="true" style={{display:'flex'}}>
-            <img src="./public/assets/GradPic.jpeg" alt="Background" className="about-background" />
+            <img src="https://res.cloudinary.com/dwvzfckyd/image/upload/v1780301941/GradPic_va6lgz.jpg" alt="Background" className="about-background" />
             <div>
               <h2>About Me</h2>
               <p>I’m a passionate Full-Stack Developer and AI enthusiast focused on building intelligent, interactive, and user-centered digital experiences. I specialize in React, Flutter, Node.js, and Python, with experience creating AI-powered applications, secure communication systems, and immersive web platforms. I enjoy transforming complex ideas into clean, scalable, and visually engaging products that solve real-world problems.
