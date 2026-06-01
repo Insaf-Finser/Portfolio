@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import './index.css'
 import BackgroundTextMotion from './components/BackgroundTextMotion'
+import gsap from 'gsap'
+import emailjs from '@emailjs/browser'
 
 const App = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' })
@@ -25,43 +27,119 @@ const App = () => {
     setFormData(prev => ({ ...prev, [name]: value }))
   }
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault()
+
+const handleFormSubmit = async (e) => {
+  e.preventDefault()
+
+  try {
+    const templateParams = {
+      from_name: formData.name,
+      from_email: formData.email,
+      message: formData.message,
+      to_email: 'insaffinser@gmail.com'
+    }
+
+    await emailjs.send(
+      'service_twdhslq',
+      'template_p4ang6o',
+      templateParams,
+      '_-Jjujg3TZi-lHVXt'
+    )
+
     setSubmitted(true)
-    setFormData({ name: '', email: '', message: '' })
-    setTimeout(() => setSubmitted(false), 3000)
+
+    setFormData({
+      name: '',
+      email: '',
+      message: ''
+    })
+
+    setTimeout(() => {
+      setSubmitted(false)
+    }, 3000)
+
+  } catch (error) {
+    console.error(error)
+    alert('Failed to send message')
   }
+}
 
   const toggleNav = () => setNavOpen(prev => !prev)
   const closeNav = () => setNavOpen(false)
 
   const projects = [
-    {
-      title: 'E-Commerce Platform',
-      description: 'A full-featured e-commerce platform with real-time inventory management and seamless checkout experience.',
-      tags: ['React', 'Node.js', 'MongoDB', 'Stripe']
-    },
-    {
-      title: 'Real-Time Chat App',
-      description: 'Modern chat application with WebSocket integration, user authentication, and message notifications.',
-      tags: ['React', 'Firebase', 'WebSocket', 'Tailwind']
-    },
-    {
-      title: 'Analytics Dashboard',
-      description: 'Interactive dashboard displaying real-time data visualization with advanced filtering and reporting.',
-      tags: ['Vue.js', 'Chart.js', 'Express', 'PostgreSQL']
-    },
-    {
-      title: 'AI Content Generator',
-      description: 'AI-powered content generation tool with NLP integration and customizable templates.',
-      tags: ['React', 'Python', 'OpenAI API', 'FastAPI']
-    }
-  ]
+  {
+    title: 'Questora',
+    description:
+      'An AI-powered interactive storytelling platform where user choices dynamically shape the narrative, creating unique adventures with generated story paths and immersive experiences.',
+    tags: ['Flutter', 'Node.js', 'MongoDB', 'AI APIs']
+  },
+  {
+    title: 'Hidden Spots',
+    description:
+      'A location-based community platform for discovering meaningful hidden places through stories, ratings, maps, and user-generated experiences.',
+    tags: ['React Native', 'MongoDB', 'Maps API', 'Node.js']
+  },
+  {
+    title: 'Secure Messaging App',
+    description:
+      'A decentralized offline messaging application using Bluetooth mesh networking and hybrid RSA-AES encryption for secure communication without internet access.',
+    tags: ['Flutter', 'Dart', 'RSA', 'AES']
+  },
+  {
+    title: 'Elegance',
+    description:
+      'A modern tailoring service platform that enables online bookings, custom measurements, order tracking, and seamless customer-tailor interactions.',
+    tags: ['React', 'TypeScript', 'Node.js', 'MongoDB']
+  },
+  {
+    title: 'OMR Sheet Reader',
+    description:
+      'An AI-powered Optical Mark Recognition system that automatically detects, analyzes, and evaluates marked answer sheets from uploaded images using computer vision techniques.',
+    tags: ['Python', 'OpenCV', 'Computer Vision', 'React'],
+    theme: '#ef4444',
+    visual: 'scanner'
+  },
+  {
+    title: 'GitHub Repo Scanner & README Generator',
+    description:
+      'A developer productivity tool that analyzes GitHub repositories and automatically generates professional README files with project insights and documentation.',
+    tags: ['React', 'TypeScript', 'GitHub API', 'AI']
+  }
+];
 
   const skills = ['React', 'Vue.js', 'JavaScript', 'TypeScript', 'Node.js', 'Express', 'MongoDB', 'Firebase', 'Docker', 'AWS', 'GraphQL', 'REST API', 'Tailwind CSS', 'Next.js', 'Python']
 
   const courses = ['DSA', 'AI', 'ML', 'Web Development', 'DBMS']
   
+  const scrollToProjects = () => {
+    document.getElementById('projects')?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    })
+  }
+
+  const downloadResume = () => {
+  const link = document.createElement('a')
+  link.href = './public/assets/Resume.pdf'
+  link.download = 'Insaf_Finser_Resume.pdf'
+  link.click()
+}
+
+  const handleProjectsClick = (e) => {
+    gsap.fromTo(
+      e.currentTarget,
+      { scale: 1 },
+      {
+        scale: 0.95,
+        duration: 0.1,
+        yoyo: true,
+        repeat: 1
+      }
+    )
+
+    scrollToProjects()
+  }
   
 
   return (
@@ -170,12 +248,20 @@ const App = () => {
               <p className="hero-subtitle">Software Developer</p>
               <p className="hero-description">Building intelligent apps, immersive experiences, and scalable solutions.</p>
               <div className="hero-buttons">
-                <button>View My Work</button>
-                <button className="secondary">Get In Touch</button>
+                <button onClick={handleProjectsClick}>
+                  View My Work
+                </button>
+
+                <button
+                  className="secondary"
+                  onClick={downloadResume}
+                >
+                  Download Resume
+                </button>
               </div>
             </div>
             <div className="hero-image-container">
-              <img src="./src/assets/mypic.jpg" className='hero-image' />
+              <img src="./public/assets/mypic.jpg" className='hero-image' />
             </div>
           </div>
           <div className="scroll-down-indicator" style={{ '--scroll-opacity': scrollIndicatorOpacity }}>
@@ -188,7 +274,7 @@ const App = () => {
         {/* About Section */}
         <section id="about" className="about">
           <div className="about-content" data-aos="fade-up" data-aos-duration="1000" data-aos-once="true" style={{display:'flex'}}>
-            <img src="./src/assets/GradPic.jpeg" alt="Background" className="about-background" />
+            <img src="./public/assets/GradPic.jpeg" alt="Background" className="about-background" />
             <div>
               <h2>About Me</h2>
               <p>I’m a passionate Full-Stack Developer and AI enthusiast focused on building intelligent, interactive, and user-centered digital experiences. I specialize in React, Flutter, Node.js, and Python, with experience creating AI-powered applications, secure communication systems, and immersive web platforms. I enjoy transforming complex ideas into clean, scalable, and visually engaging products that solve real-world problems.
