@@ -50,13 +50,14 @@ const Contact = () =>{
     }
 
     return(
-        <section id="contact" className="contact">
-          <h2>Let's Connect</h2>
-          <p style={{ marginBottom: '2rem', color: '#a0aec0' }}>Have a project in mind? Let's discuss how we can create something great together.</p>
-          <form className="contact-form" onSubmit={handleFormSubmit}>
-            <div className="form-group">
-              <label htmlFor="name">Name</label>
+        <section id="contact" className="flex min-h-screen flex-col items-center justify-start overflow-hidden bg-transparent px-8 py-20">
+          <h2 className="mb-8 text-[2rem] tracking-tight text-accent md:text-[3rem]">Let's Connect</h2>
+          <p className="mb-8 text-[#a0aec0]" style={{ marginBottom: '2rem', color: '#a0aec0' }}>Have a project in mind? Let's discuss how we can create something great together.</p>
+          <form className="relative z-10 w-full max-w-[600px]" onSubmit={handleFormSubmit}>
+            <div className="mb-6">
+              <label className="mb-2 block font-semibold text-text-primary" htmlFor="name">Name</label>
               <input
+                className="w-full rounded-lg border border-gold/20 bg-bg-secondary/50 p-3.5 font-sans text-base text-text-primary backdrop-blur-sm transition-all duration-300 placeholder:text-text-secondary focus:border-accent focus:bg-bg-secondary/80 focus:shadow-[0_0_0_3px_rgba(212,175,55,0.1)] focus:outline-none"
                 type="text"
                 id="name"
                 name="name"
@@ -66,9 +67,10 @@ const Contact = () =>{
                 required
               />
             </div>
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
+            <div className="mb-6">
+              <label className="mb-2 block font-semibold text-text-primary" htmlFor="email">Email</label>
               <input
+                className="w-full rounded-lg border border-gold/20 bg-bg-secondary/50 p-3.5 font-sans text-base text-text-primary backdrop-blur-sm transition-all duration-300 placeholder:text-text-secondary focus:border-accent focus:bg-bg-secondary/80 focus:shadow-[0_0_0_3px_rgba(212,175,55,0.1)] focus:outline-none"
                 type="email"
                 id="email"
                 name="email"
@@ -78,9 +80,10 @@ const Contact = () =>{
                 required
               />
             </div>
-            <div className="form-group">
-              <label htmlFor="message">Message</label>
+            <div className="mb-6">
+              <label className="mb-2 block font-semibold text-text-primary" htmlFor="message">Message</label>
               <textarea
+                className="w-full rounded-lg border border-gold/20 bg-bg-secondary/50 p-3.5 font-sans text-base text-text-primary backdrop-blur-sm transition-all duration-300 placeholder:text-text-secondary focus:border-accent focus:bg-bg-secondary/80 focus:shadow-[0_0_0_3px_rgba(212,175,55,0.1)] focus:outline-none min-h-[140px] resize-y"
                 id="message"
                 name="message"
                 value={formData.message}
@@ -89,8 +92,8 @@ const Contact = () =>{
                 required
               ></textarea>
             </div>
-            <button type="submit">Send Message</button>
-            {submitted && <p style={{ color: '#06b6d4', marginTop: '1rem', fontWeight: 600 }}>✓ Message sent successfully! I'll get back to you soon.</p>}
+            <button className="inline-block w-full cursor-pointer rounded-full border-2 border-accent bg-accent px-10 py-3.5 text-base font-bold tracking-wide text-bg-dark no-underline transition-all duration-300 md:w-auto" type="submit">Send Message</button>
+            {submitted && <p className="mt-4 font-semibold text-[#06b6d4]" style={{ color: '#06b6d4', marginTop: '1rem', fontWeight: 600 }}>✓ Message sent successfully! I'll get back to you soon.</p>}
           </form>
         </section>
     )

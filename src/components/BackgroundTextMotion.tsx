@@ -28,7 +28,7 @@ const BackgroundTextMotion = () => {
   }, []);
 
   return (
-    <div className="background-text-motion" style={{ opacity }}>
+    <div className="pointer-events-none absolute left-0 top-0 z-0 h-[220vh] w-full animate-curve-fade-in overflow-hidden transition-opacity duration-300 ease-out" style={{ opacity }}>
       <style>{`
         .background-text-motion {
           position: absolute;
@@ -83,14 +83,14 @@ const BackgroundTextMotion = () => {
       
 
       <svg
-        className="background-text-motion__svg"
+        className="h-full w-full"
         viewBox="0 0 1920 2200"
         preserveAspectRatio="none"
       >
         <defs>
           <path
             id="curvePath"
-            className="background-text-motion__path"
+            className="fill-none stroke-2 stroke-white/5"
             d="
               M 0 1850
 
@@ -114,7 +114,7 @@ const BackgroundTextMotion = () => {
         {/* Optional visible path for debugging */}
         {/* <use href="#curvePath" stroke="red" fill="none" /> */}
 
-        <text className="background-text-motion__text">
+        <text className="fill-white/12 font-sans text-[18px] font-bold uppercase tracking-[0.2em]">
           <textPath href="#curvePath" startOffset="0%">
             <animate
               attributeName="startOffset"
