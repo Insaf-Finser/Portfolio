@@ -1,110 +1,88 @@
-import gsap from "gsap"
-import { useEffect, useState } from "react"
-import { socialLinks } from "../../constants"
+// import { useEffect, useState } from "react"
 
 const Hero = () =>{
 
-    const [scrollIndicatorOpacity, setScrollIndicatorOpacity] = useState(1)
-
-    useEffect(() => {
-    window.scrollTo(0, 0)
-    const handleScroll = () => {
-      const scrolled = window.scrollY
-      const maxScroll = 300
-      const opacity = Math.max(0, 1 - scrolled / maxScroll)
-      setScrollIndicatorOpacity(opacity)
-    }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
 
 
+//     const [scrollIndicatorOpacity, setScrollIndicatorOpacity] = useState(1)
 
-    const scrollToProjects = () => {
-        document.getElementById('projects')?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-        })
-    }
+//     useEffect(() => {
+//     window.scrollTo(0, 0)
+//     const handleScroll = () => {
+//       const scrolled = window.scrollY
+//       const maxScroll = 300
+//       const opacity = Math.max(0, 1 - scrolled / maxScroll)
+//       setScrollIndicatorOpacity(opacity)
+//     }
+//     window.addEventListener('scroll', handleScroll)
+//     return () => window.removeEventListener('scroll', handleScroll)
+//   }, [])
 
-    const downloadResume = () => {
-    const link = document.createElement('a')
-    link.href = 'https://res.cloudinary.com/dwvzfckyd/image/upload/v1780302192/Insaf_Finser_Resume_CS_qjhqfy.jpg'
-    link.download = 'Insaf_Finser_Resume.pdf'
-    link.click()
-    }
 
-    const handleProjectsClick = (e) => {
-        gsap.fromTo(
-        e.currentTarget,
-        { scale: 1 },
-        {
-            scale: 0.95,
-            duration: 0.1,
-            yoyo: true,
-            repeat: 1
-        }
-        )
+    
 
-        scrollToProjects()
-    }
+
+    
 
     return(
-        <section id="home" className="relative flex min-h-screen flex-col items-start justify-center overflow-hidden bg-transparent px-8 py-20">
-          <div className="relative z-10 mx-auto flex max-w-[80vw] animate-fade-in-up items-center justify-center gap-8 px-4 text-center ml-5">
-            {/* Placeholder for social media icons or contact links */}
-            <div className="flex justify-center gap-2">
-              
-                <div className="mb-2 mt-2 flex items-center justify-center gap-2">
-                  <ul className=" list-none items-center justify-center">
-                    {socialLinks.map((link)=>{
-                        return(
-                            <ul className="group relative flex p-[0.3rem]">
-                      <a href={link.link} target="_blank" rel="noopener noreferrer" title={link.name} aria-label={link.name} className="flex h-10 w-10 items-center justify-center rounded-full border border-gold/30 bg-gold/10 text-accent no-underline transition-all duration-300 hover:-translate-y-1 hover:rotate-15 hover:border-accent hover:bg-gold/20 hover:shadow-[0_10px_25px_rgba(212,175,55,0.2)]">
-                        <svg width="24" height={link.name === 'LinkedIn' ? '20' : '24'} viewBox="0 0 24 24" fill="currentColor">
-                          <path d={link.svg}/>
-                        </svg>
-                      </a>
-                      <span className="absolute pl-12 pt-2 ml-2 hidden text-base text-text-secondary " style={{ marginLeft: '0'}}>{link.name}</span>
-                    </ul>
-                        )
-                        
-                    })}
-                  </ul>
-                </div>
-              
-              
-              
-            </div>
+        <section id="home" className="relative flex min-h-screen m-auto justify-center">
+          {/* <div className="relative z-10 mx-auto flex max-w-[80vw] animate-fade-in-up items-center justify-center gap-8 px-4 text-center ml-5">
+            
+            
             <div className="relative z-10 mx-auto max-w-225 animate-fade-in-up pb-[4vw] pl-0 pt-[2vh] text-center md:pl-[14vw]">
               <div>
                 <span className='mr-2 text-[3.5rem] font-light tracking-wide text-text-secondary' >I'm </span>
-                <span className="animate-slide-in-down text-[2.5rem] font-black tracking-[-2px] text-accent md:text-[4.2rem]">Insaf Finser</span>
+                <span className="animate-slide-in-down text-[7.875rem] font-black  text-accent md:text-[4.2rem] font-gasoek ">Insaf Finser</span>
               </div>
               
               <p className="animate-slide-in-up text-[1.2rem] font-light tracking-wide text-text-primary [animation-delay:200ms] mt-0 mb-8">Software Developer</p>
               <p className="mx-auto mb-10 max-w-150 animate-fade-in text-[1.1rem] text-text-secondary [animation-delay:400ms]">Building intelligent apps, immersive experiences, and scalable solutions.</p>
-              <div className="flex animate-fade-in flex-col flex-wrap justify-center gap-6 [animation-delay:600ms] md:flex-row">
-                <button onClick={handleProjectsClick} className="inline-block w-full cursor-pointer rounded-full border-2 border-accent bg-accent px-10 py-3.5 text-base font-bold tracking-wide text-bg-dark no-underline transition-all duration-300 md:w-auto">
-                  View My Work
-                </button>
-
-                <button
-                  className="inline-block w-full cursor-pointer rounded-full border-2 border-accent bg-transparent px-10 py-3.5 text-base font-bold tracking-wide text-accent no-underline transition-all duration-300 hover:bg-gold/10 hover:shadow-[0_20px_40px_rgba(212,175,55,0.2)] md:w-auto"
-                  onClick={downloadResume}
-                >
-                  Download Resume
-                </button>
-              </div>
-            </div>
-            <div className="relative left-[10vw] hidden aspect-4/5 w-[min(55vh,40vw)] animate-fade-in-up overflow-hidden rounded-[18px] transition-transform duration-300 [animation-delay:800ms] hover:scale-[1.02] hover:shadow-[0_20px_40px_rgba(212,175,55,0.2)] md:block">
-              <img src="https://res.cloudinary.com/dwvzfckyd/image/upload/v1780301606/my_pic_tue4tl.jpg" className='block h-full w-full object-cover' />
+              
             </div>
           </div>
           <div className="absolute bottom-25 left-[0.5%] hidden items-center gap-2 transform-[rotate(-90deg)] transition-opacity duration-200 ease-linear md:flex" style={{ '--scroll-opacity': scrollIndicatorOpacity }}>
             <icon className="text-base text-accent">← </icon>
             <span className="text-[0.86rem] tracking-[2px] text-text-secondary">Scroll Down</span>
-          </div>
+          </div> */}
+
+        <div className="absolute inset-0 m-auto bg-hero-div/93 w-[92%] h-[85%] md:h-[80%] sm:w-[88.5%]  min-h-[75.8%] py-8 flex flex-col justify-center items-center rounded-[30px] gap-5 overflow-y-auto">
+  <div className="w-[90%] sm:w-4/5 flex flex-col text-center items-center justify-center bg-transparent gap-2 m-auto">
+    <p className="font-geist text-accent/70 text-sm sm:text-base font-bold">BASED IN UAE</p>
+
+    <div>
+      <div className="relative inline-block">
+        <h1 className="font-gasoek text-transparent whitespace-nowrap text-[36px] sm:text-[62px] md:text-[88px] leading-none m-0 [-webkit-text-stroke:1px_rgba(236,239,230,0.5)] md:[-webkit-text-stroke:2px_#ecefe6]">
+          Insaf Finser
+        </h1>
+        <img
+          src="/assets/hero-arrow.png"
+          alt="arrow"
+          className="w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16 rotate-[-70.34deg] absolute -right-10 -top-5 sm:-right-15 sm:-top-6 md:-right-25 md:-top-5 opacity-60"
+        />
+        <p className="absolute text-cream text-[12px] sm:text-[14px] md:text-[20px] font-gloria whitespace-nowrap -right-1 -top-10 sm:-top-10 sm:-right-10 md:-top-10 md:-right-15 translate-x-[85%] opacity-60 rotate-33">
+          Open to work
+        </p>
+      </div>
+    </div>
+
+    <p className="font-geist text-cream/50 font-light text-sm sm:text-base">Aspiring Software Developer / Creative</p>
+    <p className="font-grotesk text-cream/80 text-base sm:text-xl md:text-2xl lg:text-3xl w-full sm:w-4/5">
+      I build things that learn and things that ship — AI models, full-stack apps, and the occasional mobile app in between. Recent CS grad, but I've been shipping to production long before the diploma showed up.
+    </p>
+  </div>
+
+  <div className="flex justify-center sm:justify-end items-baseline w-full px-7 ">
+    <div className="bg-cream/98 p-2 rounded-2xl w-full sm:w-[55%] md:w-[30%] ">
+      <img src="/assets/hero-terminal-dot.png" alt="dots" className="pl-0 p-1 w-16 sm:w-auto" />
+      <div className="w-full sm:w-4/5">
+        <p className="font-geist text-[10px] sm:text-[11px] wrap-break-word"><span className="text-accent">insaf@finser ~ %</span> npm run portfolio --status</p>
+        <p className="font-geist text-[10px] sm:text-[11px] wrap-break-word"><span className="text-green-900">✔ System online.</span> Building AI-powered apps, mobile experiences, and full-stack products.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
           
         </section>
     )

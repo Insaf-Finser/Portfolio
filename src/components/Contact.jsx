@@ -53,7 +53,7 @@ const Contact = () =>{
         <section id="contact" className="flex min-h-screen flex-col items-center justify-start overflow-hidden bg-transparent px-8 py-20">
           <h2 className="mb-8 text-[2rem] tracking-tight text-accent md:text-[3rem]">Let's Connect</h2>
           <p className="mb-8 text-[#a0aec0]" style={{ marginBottom: '2rem', color: '#a0aec0' }}>Have a project in mind? Let's discuss how we can create something great together.</p>
-          <form className="relative z-10 w-full max-w-[600px]" onSubmit={handleFormSubmit}>
+          <form className="relative z-10 w-full max-w-150" onSubmit={handleFormSubmit}>
             <div className="mb-6">
               <label className="mb-2 block font-semibold text-text-primary" htmlFor="name">Name</label>
               <input
@@ -83,7 +83,7 @@ const Contact = () =>{
             <div className="mb-6">
               <label className="mb-2 block font-semibold text-text-primary" htmlFor="message">Message</label>
               <textarea
-                className="w-full rounded-lg border border-gold/20 bg-bg-secondary/50 p-3.5 font-sans text-base text-text-primary backdrop-blur-sm transition-all duration-300 placeholder:text-text-secondary focus:border-accent focus:bg-bg-secondary/80 focus:shadow-[0_0_0_3px_rgba(212,175,55,0.1)] focus:outline-none min-h-[140px] resize-y"
+                className="w-full rounded-lg border border-gold/20 bg-bg-secondary/50 p-3.5 font-sans text-base text-text-primary backdrop-blur-sm transition-all duration-300 placeholder:text-text-secondary focus:border-accent focus:bg-bg-secondary/80 focus:shadow-[0_0_0_3px_rgba(212,175,55,0.1)] focus:outline-none min-h-35 resize-y"
                 id="message"
                 name="message"
                 value={formData.message}

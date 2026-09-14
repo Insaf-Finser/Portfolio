@@ -2,7 +2,7 @@ import { skills,courses } from "../../constants"
 
 const About=()=>{
     return(
-        <section id="about" className="flex min-h-screen flex-col items-center justify-start overflow-hidden px-8 py-20 bg-transparent ">
+        <section id="about" className="flex min-h-screen flex-col items-center justify-start overflow-hidden px-8 py-20 bg-cream-alt ">
           <div className="relative z-10 flex max-w-[90vw] flex-col items-center rounded-[25px] border border-accent text-center md:max-w-[81vw] md:max-h-[70vh] md:flex-row" data-aos="fade-up" data-aos-duration="1000" data-aos-once="true" >
             <img src="https://res.cloudinary.com/dwvzfckyd/image/upload/v1780301941/GradPic_va6lgz.jpg" alt="Background" className="relative -z-10 h-full w-55 object-fill p-10 pr-0" />
             <div>
