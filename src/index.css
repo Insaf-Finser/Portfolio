@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400..700;1,400..700&family=Gasoek+One&family=Geist+Mono:ital,wght@0,100..900;1,100..900&family=Gloria+Hallelujah&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400..700;1,400..700&family=Gasoek+One&family=Geist+Mono:ital,wght@0,100..900;1,100..900&family=Gloria+Hallelujah&family=Instrument+Serif:ital@0;1&display=swap');
 @import "tailwindcss";
 
 
@@ -24,6 +24,7 @@
   --font-geist:'Geist Mono',sans-serif;
   --font-grotesk:'Familjen Grotesk',sans-serif;
   --font-gloria:'Gloria Hallelujah',sans-serif;
+  --font-interserif:'Instrument Serif',sans-serif;
 
   --animate-fade-in-up: fadeInUp 1s ease-out both;
   --animate-slide-in-down: slideInDown 1s ease-out both;
@@ -46,6 +47,7 @@
 
   #root {
     @apply min-h-screen;
+    cursor: default;
   }
 }
 

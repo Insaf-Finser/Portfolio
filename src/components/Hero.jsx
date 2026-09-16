@@ -45,10 +45,10 @@ const Hero = () =>{
             <span className="text-[0.86rem] tracking-[2px] text-text-secondary">Scroll Down</span>
           </div> */}
 
-            <div className="absolute inset-0 m-auto bg-hero-div/93 w-[92%] h-[85%] md:h-[80%] sm:w-[88.5%] min-h-[75.8%] py-8 flex flex-col justify-center items-center rounded-[30px] gap-5 overflow-y-auto">
+            <div className="absolute shadow-2xl shadow-amber-100 inset-0 m-auto bg-hero-div/93 w-[92%] h-[85%] md:h-[80%] sm:w-[88.5%] min-h-[75.8%] py-8 flex flex-col justify-center items-center rounded-[30px] gap-5 overflow-y-auto">
     <div className="w-[90%] sm:w-4/5 flex flex-col text-center items-center justify-center bg-transparent gap-2 m-auto">
         {/* SUBHEADING */}
-        <p className="font-geist text-accent/70 text-[clamp(14px,1.2vw,16px)] font-bold">BASED IN UAE</p>
+        <p className="font-geist text-accent/70 text-[clamp(14px,1.2vw,16px)] font-bold z-10">BASED IN UAE</p>
 
         <div>
             <div className="relative inline-block">
@@ -72,7 +72,7 @@ const Hero = () =>{
         </div>
 
         {/* BIO TITLES */}
-        <p className="font-geist text-cream/50 font-light text-[clamp(14px,1.2vw,16px)]">Aspiring Software Developer / Creative</p>
+        <p className="font-geist text-cream/50 font-light text-[clamp(14px,1.2vw,16px)] z-10">Aspiring Software Developer / Creative</p>
         <p className="font-grotesk text-cream/80 text-[clamp(16px,2vw,30px)] leading-relaxed w-full sm:w-4/5">
             I build things that learn and things that ship — AI models, full-stack apps, and the occasional mobile app in between. Recent CS grad, but I've been shipping to production long before the diploma showed up.
         </p>
