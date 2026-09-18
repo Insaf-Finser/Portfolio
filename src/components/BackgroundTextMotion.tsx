@@ -114,7 +114,7 @@ const BackgroundTextMotion = () => {
         {/* Optional visible path for debugging */}
         {/* <use href="#curvePath" stroke="red" fill="none" /> */}
 
-        <text className="fill-white/12 font-sans text-[18px] font-bold uppercase tracking-[0.2em]">
+        <text className="text-black  font-sans text-[18px] font-bold uppercase tracking-[0.2em]">
           <textPath href="#curvePath" startOffset="0%">
             <animate
               attributeName="startOffset"

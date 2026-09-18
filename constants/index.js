@@ -150,7 +150,7 @@ const projects = [
   },
   {
     id: 'repo-scanner',
-    title: 'GitHub Repo Scanner & README Generator',
+    title: 'GitHub README Generator',
     year: '2024',
     role: 'Developer Tools Engineer',
     theme: '#3b82f6',

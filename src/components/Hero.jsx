@@ -45,7 +45,7 @@ const Hero = () =>{
             <span className="text-[0.86rem] tracking-[2px] text-text-secondary">Scroll Down</span>
           </div> */}
 
-            <div className="absolute shadow-2xl shadow-amber-100 inset-0 m-auto bg-hero-div/93 w-[92%] h-[85%] md:h-[80%] sm:w-[88.5%] min-h-[75.8%] py-8 flex flex-col justify-center items-center rounded-[30px] gap-5 overflow-y-auto">
+            <div className="absolute shadow-2xl shadow-amber-50 inset-0 m-auto bg-hero-div/93 w-[92%] h-[85%] md:h-[80%] sm:w-[88.5%] min-h-[75.8%] py-8 flex flex-col justify-center items-center rounded-[30px] gap-5 overflow-y-auto">
     <div className="w-[90%] sm:w-4/5 flex flex-col text-center items-center justify-center bg-transparent gap-2 m-auto">
         {/* SUBHEADING */}
         <p className="font-geist text-accent/70 text-[clamp(14px,1.2vw,16px)] font-bold z-10">BASED IN UAE</p>

@@ -170,8 +170,7 @@ const NavMenu = () =>{
     //   </nav>
     
     <div ref={componentRef}>
-        <nav id="nav" className="fixed w-full flex  text-accent z-100 justify-between items-center  font-gloria text-[1.25rem] font-semibold p-4 [&.is-menu-open]:text-cream">
-            <div className="no-underline text-inherit p-4"><a href="/">Hi!</a></div>
+        <nav id="nav" className="fixed w-full flex  text-accent z-100 justify-end items-end  font-gloria text-[1.25rem] font-semibold p-4 [&.is-menu-open]:text-cream">
             <button id="nav-toggler" className="font-geist p-4">
                 Menu
             </button>
