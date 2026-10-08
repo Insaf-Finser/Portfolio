@@ -3,7 +3,6 @@
 
 
 
-
 @theme {
   /* New light/editorial theme, sampled from the dev-portfolio Figma design */
   --color-cream: #efece6;
@@ -39,10 +38,16 @@
     scroll-behavior: auto;
   }
 
+  html,
+  body {
+    overscroll-behavior-y: none;
+  }
+
   body {
     @apply min-h-screen font-sans text-ink overflow-x-hidden bg-cream;
     line-height: 1.6;
     letter-spacing: 0.3px;
+    -webkit-overflow-scrolling: touch;
   }
 
   #root {

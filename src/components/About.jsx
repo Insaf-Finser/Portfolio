@@ -1,7 +1,6 @@
     import gsap from "gsap";
     import { ScrollTrigger,SplitText } from "gsap/all";
     import { useLayoutEffect, useRef } from "react";
-    import { useMediaQuery } from "react-responsive"
 
 
     gsap.registerPlugin(ScrollTrigger);
@@ -9,16 +8,13 @@
 
     const About=()=>{
 
-        const isMobile = useMediaQuery({maxWidth:767});
-
         const sectionRef = useRef(null)
 
         useLayoutEffect(() => {
-            const ctx = gsap.context(() => {
-
-                const startsec = isMobile ? '15% top':'top top';
-            
             const section = sectionRef.current;
+            const mm = gsap.matchMedia();
+            const splitTextInstances = [];
+            const ctx = gsap.context(() => {
 
             const mainpic = section?.querySelector('#mainpic');
             const gradpic = section?.querySelector('#gradpic');
@@ -29,57 +25,98 @@
             const eduH = section?.querySelector(".edu-h");
             const eduP = section?.querySelector(".edu-p");
 
-                    
-            const h_abt_split = new SplitText(aboutH,{type:'words'});
-            const p_abt_split = new SplitText(aboutP,{type:'words'});
             if (!section || !mainpic || !gradpic || !aboutText || !eduText || !aboutH || !aboutP || !eduH || !eduP) {
                     console.warn('About animation: missing target element(s)', { mainpic, gradpic, aboutText, eduText });
                     return;
                 }
 
-            // const h_edu_split = new SplitText(eduH, { type: 'chars' });
-            // const p_edu_split = new SplitText(eduP, { type: 'words' });
-            // gsap.set([...h_edu_split.chars, ...p_edu_split.words], { opacity: 0 });
+            const h_abt_split = new SplitText(aboutH,{type:'words'});
+            const p_abt_split = new SplitText(aboutP,{type:'words'});
+            const h_edu_split = new SplitText(eduH,{type:'words'});
+            const p_edu_split = new SplitText(eduP,{type:'words'});
+            splitTextInstances.push(h_abt_split, p_abt_split, h_edu_split, p_edu_split);
 
-                // distance from mainpic's resting position to gradpic's resting position
-                const startBox = mainpic.getBoundingClientRect();
-                const endBox = gradpic.getBoundingClientRect();
-                const travelX = endBox.left - startBox.left;
+            gsap.set([mainpic, gradpic], { force3D: true });
 
-                gsap.timeline({scrollTrigger:{
-                    trigger:section,
-                    start:isMobile ? 'top 20%':'top 50%',
-                    end:'top top',
-                    scrub:true,
+            const getTravelX = () => {
+                const aX = Number(gsap.getProperty(mainpic, 'x')) || 0;
+                const bX = Number(gsap.getProperty(gradpic, 'x')) || 0;
+                return (gradpic.getBoundingClientRect().left - bX) - (mainpic.getBoundingClientRect().left - aX);
+            };
 
-                }}).from(mainpic, {opacity:0, xPercent:-100, duration: 6 },isMobile?0:'')
-                    .from(h_abt_split.words,{opacity:0,y:40,duration:2,stagger:2},0)
-                    .from(p_abt_split.words,{opacity:0.2,duration:3,stagger:0.15},0);
+            const scrub = 1.2;
 
-                
-                const tl = gsap.timeline({ defaults: { ease: 'power1.inOut' } ,scrollTrigger:{
-                trigger: section,
-                    start: startsec,
-                    end: '+=200%',
-                    pin: true,
-                    scrub: true,
-                    delay:1
-                }});
-                tl
-                .to(section,{duration:0.15})
-                .to(aboutText, { opacity: 0,x: 20, duration: 0.3 },'one')
-                .to(mainpic, { x: travelX, duration: 0.5 ,opacity:0},'one')
-                .fromTo(gradpic, { x: -travelX }, { x: 0, opacity: 1, duration: 0.5}, 'one')
-                .to(eduText, { opacity: 1, duration: 0.5,}, 'one+=0.1')
-                .to(section,{duration:0.15});
+            mm.add({
+                isMobile: '(max-width: 767px)',
+                isDesktop: '(min-width: 768px)',
+            }, (context) => {
+                const { isMobile } = context.conditions;
+
+                const intro = gsap.timeline({
+                    defaults: { ease: 'none' },
+                    scrollTrigger: {
+                        trigger: section,
+                        start: isMobile ? 'top 25%' : 'top 50%',
+                        end: 'top top',
+                        scrub,
+                        invalidateOnRefresh: true,
+                    },
+                })
+                if (!isMobile) {
+                    intro.from(mainpic, { opacity: 0, xPercent: -100 }, 0);
+                }
+                intro
+                    .from(h_abt_split.words, { opacity: 0, y: 32, stagger: 0.06 }, 0)
+                    .from(p_abt_split.words, { opacity: 0.2, y: isMobile ? 12 : 0, stagger: 0.03 }, 0);
+
+                if (isMobile) return;
+
+                const tl = gsap.timeline({
+                    defaults: { ease: 'none' },
+                    scrollTrigger: {
+                        trigger: section,
+                        start: 'top top',
+                        end: () => `+=${Math.round(window.innerHeight * 2)}`,
+                        pin: true,
+                        pinSpacing: true,
+                        anticipatePin: 1,
+                        scrub,
+                        invalidateOnRefresh: true,
+                    },
+                });
+
+                tl.to({}, { duration: 0.12 })
+                    .to(aboutText, { opacity: 0, x: 20, duration: 0.3 }, 'one')
+                    .to(mainpic, { x: () => getTravelX(), opacity: 0, duration: 0.5 }, 'one')
+                    .fromTo(
+                        gradpic,
+                        { x: () => -getTravelX() },
+                        { x: 0, opacity: 1, duration: 0.5, immediateRender: false },
+                        'one'
+                    )
+                    .to(eduText, { opacity: 1, duration: 0.5 }, 'one+=0.1')
+                    .to({}, { duration: 0.12 });
+            });
                 
             }, sectionRef);
 
-            return () => ctx.revert();
-        }, [isMobile]);
+            const refresh = () => ScrollTrigger.refresh();
+            const images = section?.querySelectorAll('img') ?? [];
+            images.forEach((img) => {
+                if (!img.complete) img.addEventListener('load', refresh, { once: true });
+            });
+            document.fonts?.ready?.then(refresh);
+
+            return () => {
+                images.forEach((img) => img.removeEventListener('load', refresh));
+                mm.revert();
+                ctx.revert();
+                splitTextInstances.forEach((split) => split.revert());
+            };
+        }, []);
 
         return(
-            <section ref={sectionRef} id="about" className="relative flex min-h-screen w-full h-full flex-col items-center justify-start overflow-hidden px-8 py-20 bg-cream-alt gap-20">
+            <section ref={sectionRef} id="about" className="relative flex min-h-dvh w-full h-full flex-col items-center justify-start overflow-x-hidden px-4 py-20 bg-cream-alt gap-20 sm:px-6 md:px-8">
             
 
                 <div className="relative w-full  pb-3 flex items-center gap-3 text-xs uppercase tracking-widest font-mono text-neutral-500">
@@ -87,24 +124,24 @@
                     <div className="w-6 h-px bg-neutral-400"></div>
                     <span>About & Practice</span>
                 </div>
-                <div className="relative w-full h-[calc(100vh-6rem)] md:h-[calc(100vh-8rem)]">
-                    <div className="about-panel absolute inset-0 flex flex-col md:flex-row items-center md:items-start justify-center gap-20 py-0 md:px-20 font-grotesk text-black opacity-100">
-                        <img src="/assets/my-pic.png" alt="my pic" id="mainpic" className="w-48 h-60 z-10 md:w-100 md:h-125 object-cover shrink-0"/>
-                        <div className="about-text flex flex-col self-start text-left gap-4.5 h-full  ">
+                <div className="relative isolate flex w-full flex-col gap-12 md:block md:h-[calc(100dvh-8rem)]">
+                    <div className="about-panel relative flex w-full flex-col items-center justify-center gap-8 py-0 font-grotesk text-black md:absolute md:inset-0 md:flex-row md:items-start md:gap-10 md:px-6 lg:gap-20 lg:px-20">
+                        <img src="/assets/my-pic.png" alt="my pic" id="mainpic" className="relative z-20 order-1 h-60 w-48 shrink-0 object-cover will-change-transform md:order-none md:h-80 md:w-64 lg:h-125 lg:w-100"/>
+                        <div className="about-text relative z-0 order-2 flex h-full min-w-0 w-full flex-1 flex-col self-start gap-4.5 text-left md:order-none md:w-auto">
                             <h1 className="about-h text-[clamp(36px,10vw,98px)] m-0 font-interserif">About Me</h1>
-                            <p className="about-p text-[clamp(20px,2vw,30px)] text-black text-justify ">I'm a passionate Full-Stack Developer and AI enthusiast focused on building intelligent, interactive, and user-centered digital experiences. I specialize in React, Flutter, Node.js, and Python, with experience creating AI-powered applications, secure communication systems, and immersive web platforms. I enjoy transforming complex ideas into clean, scalable, and visually engaging products that solve real-world problems.</p>
+                            <p className="about-p text-[clamp(16px,4vw,20px)] md:text-[clamp(20px,2vw,30px)] text-black text-justify ">I'm a passionate Full-Stack Developer and AI enthusiast focused on building intelligent, interactive, and user-centered digital experiences. I specialize in React, Flutter, Node.js, and Python, with experience creating AI-powered applications, secure communication systems, and immersive web platforms. I enjoy transforming complex ideas into clean, scalable, and visually engaging products that solve real-world problems.</p>
                         </div>
                     </div>
-                    <div className="absolute inset-0 flex flex-col md:flex-row items-center md:items-start  justify-between  gap-20 py-10 pt-0    md:px-20 font-grotesk text-black ">
+                    <div className="relative flex w-full flex-col items-center justify-between gap-8 py-0 font-grotesk text-black md:absolute md:inset-0 md:flex-row md:items-start md:gap-10 md:py-10 md:pt-0 md:px-6 lg:gap-20 lg:px-20">
                         <img
                                 id="gradpic"
                                 src="/assets/GradPic.jpeg"
                                 alt="graduation photo"
-                                className="order-1 md:order-2 w-48 h-60 z-10 md:w-100 md:h-125 object-cover shrink-0 opacity-0"
+                                className="relative z-20 order-1 h-60 w-48 shrink-0 object-cover will-change-transform md:order-2 md:h-80 md:w-64 md:opacity-0 lg:h-125 lg:w-100"
                             />
-                        <div className="edu-text order-2 md:order-1 flex flex-col  self-start text-left gap-4.5 h-full opacity-0 ">
+                        <div className="edu-text relative z-0 order-2 flex h-full min-w-0 w-full flex-1 flex-col self-start gap-4.5 text-left md:order-1 md:w-auto md:opacity-0">
                             <h1 className="edu-h text-[clamp(36px,10vw,98px)] m-0 font-interserif">Education</h1>
-                            <p className="edu-p text-[clamp(20px,2vw,30px)] text-black/60 leading-snug md:p-10 font-geist">
+                            <p className="edu-p text-[clamp(16px,4vw,20px)] md:text-[clamp(20px,2vw,30px)] text-black/60 leading-snug md:p-10 font-geist">
                                 <span className="block text-black/90 ">BTech in Computer Science and Engineering</span>
                                 <span className="block">Amal Jyothi College of Engineering, </span><span className="block">Kottayam, Kerala, India.</span>
                                 <span className="block font-medium  ">2022 – 2026</span>
