@@ -45,6 +45,8 @@
             };
 
             const scrub = 1.2;
+            gsap.set(h_abt_split.words, { opacity: 0, y: 32 });
+            gsap.set(p_abt_split.words, { opacity: 0.1 });
 
             mm.add({
                 isMobile: '(max-width: 767px)',
@@ -58,17 +60,32 @@
                         trigger: section,
                         start: isMobile ? 'top 25%' : 'top 50%',
                         end: 'top top',
+                        
+                        invalidateOnRefresh: true,
+                    },
+                })
+                const intro1 = gsap.timeline({
+                    defaults: { ease: 'none' },
+                    scrollTrigger: {
+                        trigger: section,
+                        start: isMobile ? 'top 25%' : 'top 50%',
+                        end: 'top top',
                         scrub,
                         invalidateOnRefresh: true,
                     },
                 })
                 if (!isMobile) {
-                    intro.from(mainpic, { opacity: 0, xPercent: -100 }, 0);
+                    intro1.from(mainpic, { opacity: 0, xPercent: -100 }, 0);
                 }
                 intro
-                    .from(h_abt_split.words, { opacity: 0, y: 32, stagger: 0.06 }, 0)
-                    .from(p_abt_split.words, { opacity: 0.2, y: isMobile ? 12 : 0, stagger: 0.03 }, 0);
-
+                .fromTo(h_abt_split.words,
+                    { opacity: 0, y: 32 },
+                    { opacity: 1, y: 0, duration: 0.4, stagger: { amount: 0.4 }, immediateRender: true },
+                    0);
+                intro1.fromTo(p_abt_split.words,
+                    { opacity: 0.1, y: isMobile ? 12 : 0 },
+                    { opacity: 1, y: 0, duration: 0.5, stagger: { amount: 0.8 }, immediateRender: true },
+                    0);
                 if (isMobile) return;
 
                 const tl = gsap.timeline({
