@@ -1,0 +1,7 @@
+# Insaf Finser
+
+> Full-stack developer and recent CS graduate based in the UAE. Builds AI-powered apps, full-stack products and mobile apps.
+
+## Pages
+- [Home](https://portfoliobyinsaffinser.vercel.app/): Intro and selected projects
+- [About](https://portfoliobyinsaffinser.vercel.app/#about): Background and education

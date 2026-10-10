@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from "react"
 import { projects } from "../../constants"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
-import ScrollTrigger from "gsap/all"
-import { useMediaQuery } from "react-responsive"
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useMediaQuery } from "react-responsive";
 
 
 gsap.registerPlugin(ScrollTrigger)
@@ -151,7 +151,7 @@ const ProjectShowcase = () =>{
                   <p className="font-geist text-sm leading-relaxed text-black/70">{project.description}</p>
                   <div className="mt-5 flex flex-wrap gap-2">
                     {project.tags.map((tag) => (
-                      <span key={tag} className="rounded-full border border-black/20 px-3 py-1 font-mono text-[11px] uppercase tracking-wide text-black/70">
+                      <span key={tag} data-cursor="tag" className="rounded-full border border-black/20 px-3 py-1 font-mono text-[11px] uppercase tracking-wide text-black/70">
                         {tag}
                       </span>
                     ))}
@@ -209,6 +209,7 @@ const ProjectShowcase = () =>{
                     {project.tags.map((tag, i) => (
                       <span
                         key={i}
+                        data-cursor="tag"
                         className="text-[11px] uppercase tracking-wide font-mono border border-black/20 rounded-full px-2 py-1 hover:bg-accent/60 hover:duration-300 hover:scale-[105%] text-black/70 z-100"
                       >
                         {tag}

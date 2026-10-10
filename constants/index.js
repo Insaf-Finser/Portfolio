@@ -58,6 +58,7 @@ const projects = [
     year: '2025',
     role: 'Full-Stack Developer',
     theme: '#8b5cf6',
+    shortdescription: 'An AI-powered story platform where choices shape every adventure.',
     description:
       'An AI-powered interactive storytelling platform where user choices dynamically shape the narrative, creating unique adventures with generated story paths and immersive experiences.',
     longDescription:
@@ -77,6 +78,7 @@ const projects = [
     year: '2025',
     role: 'Full-Stack Developer',
     theme: '#22c55e',
+    shortdescription: 'Discover community-recommended places through stories and maps.',
     description:
       'A location-based community platform for discovering meaningful hidden places through stories, ratings, maps, and user-generated experiences.',
     longDescription:
@@ -96,6 +98,7 @@ const projects = [
     year: '2024',
     role: 'Mobile Developer',
     theme: '#ef4444',
+    shortdescription: 'Send encrypted messages offline through Bluetooth mesh networking.',
     description:
       'A decentralized offline messaging application using Bluetooth mesh networking and hybrid RSA-AES encryption for secure communication without internet access.',
     longDescription:
@@ -115,6 +118,7 @@ const projects = [
     year: '2024',
     role: 'Full-Stack Developer',
     theme: '#eee3c0',
+    shortdescription: 'Manage tailoring bookings, measurements, and order updates online.',
     description:
       'A modern tailoring service platform that enables online bookings, custom measurements, order tracking, and seamless customer-tailor interactions.',
     longDescription:
@@ -135,6 +139,7 @@ const projects = [
     role: 'Computer Vision Engineer',
     theme: '#ef4444',
     visual: 'scanner',
+    shortdescription: 'Automatically detect and grade answers from uploaded OMR sheets.',
     description:
       'An AI-powered Optical Mark Recognition system that automatically detects, analyzes, and evaluates marked answer sheets from uploaded images using computer vision techniques.',
     longDescription:
@@ -154,6 +159,7 @@ const projects = [
     year: '2024',
     role: 'Developer Tools Engineer',
     theme: '#3b82f6',
+    shortdescription: 'Analyze GitHub repositories and generate professional README drafts.',
     description:
       'A developer productivity tool that analyzes GitHub repositories and automatically generates professional README files with project insights and documentation.',
     longDescription:

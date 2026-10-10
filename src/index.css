@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400..700;1,400..700&family=Gasoek+One&family=Geist+Mono:ital,wght@0,100..900;1,100..900&family=Gloria+Hallelujah&family=Instrument+Serif:ital@0;1&display=swap');
 @import "tailwindcss";
 
 
@@ -48,6 +47,11 @@
     line-height: 1.6;
     letter-spacing: 0.3px;
     -webkit-overflow-scrolling: touch;
+  }
+
+  ::selection {
+    color: var(--color-cream);
+    background-color: var(--color-ink);
   }
 
   #root {

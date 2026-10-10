@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { ContactShadows, Environment, Html, Lightformer, RoundedBox, useCursor } from '@react-three/drei'
 import * as THREE from 'three'
@@ -33,29 +33,40 @@ function HoverLabel({ show, children, ...props }) {
 /* -------------------------------------------------------------------------- */
 
 function wrapText(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
-  const words = (text || '').split(/\s+/).filter(Boolean)
-  if (!words.length) return y
-  let line = ''
-  let lines = 0
-  for (let i = 0; i < words.length; i++) {
-    const test = line ? `${line} ${words[i]}` : words[i]
-    if (ctx.measureText(test).width > maxWidth && line) {
-      ctx.fillText(line, x, y)
-      y += lineHeight
-      line = words[i]
-      lines += 1
-      if (lines >= maxLines - 1) {
-        const rest = [line, ...words.slice(i + 1)].join(' ')
-        const ellipsis = rest.length > 42 ? `${rest.slice(0, 42)}…` : rest
-        ctx.fillText(ellipsis, x, y)
-        return y + lineHeight
-      }
-    } else {
-      line = test
+  const lines = []
+  for (const paragraph of (text || '').split(/\r\n?|\n/)) {
+    const words = paragraph.split(/\s+/).filter(Boolean)
+    if (!words.length) {
+      lines.push('')
+      continue
     }
+
+    let line = ''
+    for (const word of words) {
+      const nextLine = line ? `${line} ${word}` : word
+      if (ctx.measureText(nextLine).width > maxWidth && line) {
+        lines.push(line)
+        line = word
+      } else {
+        line = nextLine
+      }
+    }
+    lines.push(line)
   }
-  if (line) ctx.fillText(line, x, y)
-  return y + lineHeight
+
+  const visibleLines = lines.slice(0, maxLines)
+  if (lines.length > maxLines && visibleLines.length) {
+    let lastLine = visibleLines[visibleLines.length - 1]
+    while (lastLine && ctx.measureText(`${lastLine}…`).width > maxWidth) {
+      lastLine = lastLine.slice(0, -1)
+    }
+    visibleLines[visibleLines.length - 1] = `${lastLine}…`
+  }
+
+  visibleLines.forEach((line, index) => {
+    if (line) ctx.fillText(line, x, y + index * lineHeight)
+  })
+  return y + visibleLines.length * lineHeight
 }
 
 function useScreenTexture(formData, submitted, sending) {
@@ -1118,7 +1129,7 @@ function SocialProps() {
 /*  Scene                                                                     */
 /* -------------------------------------------------------------------------- */
 
-function Scene({ formData, submitted, sending, orbitEnabled, reducedMotion, lowPower, intro, screenSubmitted, onDelivered, onFocusForm }) {
+function Scene({ formData, submitted, sending, orbitEnabled, reducedMotion, lowPower, intro, screenSubmitted, onDelivered, onFocusForm, onFirstRender }) {
   return (
     <>
       <color attach="background" args={['#141412']} />
@@ -1133,7 +1144,7 @@ function Scene({ formData, submitted, sending, orbitEnabled, reducedMotion, lowP
         intensity={2}
         color="#ffe3c2"
         castShadow
-        shadow-mapSize={lowPower ? [1024, 1024] : [2048, 2048]}
+        shadow-mapSize={lowPower ? [512, 512] : [1536, 1536]}
         shadow-bias={-0.0004}
         shadow-normalBias={0.02}
       >
@@ -1142,7 +1153,7 @@ function Scene({ formData, submitted, sending, orbitEnabled, reducedMotion, lowP
 
       <directionalLight position={[-3, 2.5, -2.5]} intensity={0.8} color="#9fb8ff" />
 
-      <mesh position={[0, 1.1, -2.2]} receiveShadow>
+      <mesh position={[0, 1.1, -2.2]} receiveShadow onAfterRender={onFirstRender}>
         <planeGeometry args={[14, 8]} />
         <meshStandardMaterial color="#1c1b18" roughness={1} />
       </mesh>
@@ -1169,11 +1180,18 @@ function Scene({ formData, submitted, sending, orbitEnabled, reducedMotion, lowP
           onDelivered={onDelivered}
         />
         <SocialProps />
-        <ContactShadows position={[0, 0.002, 0]} opacity={0.5} scale={8} blur={2.4} far={2.5} resolution={1024} />
+        <ContactShadows
+          position={[0, 0.002, 0]}
+          opacity={0.5}
+          scale={8}
+          blur={2.4}
+          far={2.5}
+          resolution={lowPower ? 512 : 768}
+        />
       </group>
 
       {!lowPower && (
-        <EffectComposer multisampling={4}>
+        <EffectComposer multisampling={2}>
           <Bloom mipmapBlur luminanceThreshold={0.85} luminanceSmoothing={0.25} intensity={0.55} />
           <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
         </EffectComposer>
@@ -1182,11 +1200,47 @@ function Scene({ formData, submitted, sending, orbitEnabled, reducedMotion, lowP
   )
 }
 
-export default function DeskScene({ formData, submitted, sending, orbitEnabled, reducedMotion, screenSubmitted, onDelivered, onFocusForm }) {
-  const lowPower = useMemo(() => typeof window !== 'undefined' && window.innerWidth < 768, [])
+function WebGLFallback({ onUnavailable }) {
+  useEffect(() => {
+    onUnavailable()
+  }, [onUnavailable])
+
+  return (
+    <div className="flex h-full w-full items-center justify-center bg-[#141412] px-6 text-center font-geist text-sm text-cream/75">
+      3D preview is unavailable on this device.
+    </div>
+  )
+}
+
+export default function DeskScene({
+  formData,
+  submitted,
+  sending,
+  orbitEnabled,
+  reducedMotion,
+  screenSubmitted,
+  onDelivered,
+  onFocusForm,
+  warmup = false,
+  onReady,
+  onUnavailable,
+}) {
+  const lowPower = useMemo(() => {
+    if (typeof window === 'undefined') return false
+    return window.innerWidth < 768
+  }, [])
   const wrap = useRef(null)
   const [inView, setInView] = useState(false)
   const [intro, setIntro] = useState(false)
+  const [hasRendered, setHasRendered] = useState(false)
+  const hasSignaledFirstRender = useRef(false)
+
+  const handleFirstFrame = useCallback(() => {
+    if (hasSignaledFirstRender.current) return
+    hasSignaledFirstRender.current = true
+    setHasRendered(true)
+    onReady?.()
+  }, [onReady])
 
   useEffect(() => {
     const el = wrap.current
@@ -1210,9 +1264,9 @@ export default function DeskScene({ formData, submitted, sending, orbitEnabled, 
   return (
     <div ref={wrap} className="h-full w-full">
       <Canvas
-        frameloop={inView ? 'always' : 'never'}
+        frameloop={inView ? 'always' : warmup ? 'demand' : 'never'}
         shadows
-        dpr={[1, lowPower ? 1.25 : 1.8]}
+        dpr={[1, lowPower ? 1 : 1.5]}
         gl={{
           antialias: lowPower,
           alpha: false,
@@ -1221,7 +1275,8 @@ export default function DeskScene({ formData, submitted, sending, orbitEnabled, 
           toneMappingExposure: 1.05,
         }}
         camera={{ position: [2.4, 2.05, 3.7], fov: 40, near: 0.1, far: 40 }}
-        className="h-full w-full"
+        className={`h-full w-full transition-opacity duration-700 ${hasRendered ? 'opacity-100' : 'opacity-0'}`}
+        fallback={<WebGLFallback onUnavailable={onUnavailable} />}
       >
         <Scene
           formData={formData}
@@ -1234,6 +1289,7 @@ export default function DeskScene({ formData, submitted, sending, orbitEnabled, 
           screenSubmitted={screenSubmitted}
           onDelivered={onDelivered}
           onFocusForm={onFocusForm}
+          onFirstRender={handleFirstFrame}
         />
       </Canvas>
     </div>
