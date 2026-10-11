@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
-   Sitemap: https://insaffinser.vercel.app/sitemap.xml
+
+Sitemap: https://insaffinser.vercel.app/sitemap.xml
