@@ -298,12 +298,12 @@ const Hero = ({ start = true }) => {
         <div className="hero-track">
           <div className="hero-set">
             {projects.map((p) => (
-              <ProjectCard key={p} project={p} />
+              <ProjectCard key={p.id} project={p} />
             ))}
           </div>
           <div className="hero-set" aria-hidden="true">
             {projects.map((p) => (
-              <ProjectCard key={`${p}-copy`} project={p} hidden />
+              <ProjectCard key={`${p.id}-copy`} project={p} hidden />
             ))}
           </div>
         </div>

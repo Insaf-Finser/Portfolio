@@ -67,7 +67,12 @@ const ProjectShowcase = () =>{
     const deckProjects = [...projects.slice(activeProject), ...projects.slice(0, activeProject)]
 
     useGSAP(() => {
-      gsap.from('.project-card', {
+      if (isMobile || !rowRef.current) return
+
+      const cards = rowRef.current.querySelectorAll('.project-card')
+      if (!cards.length) return
+
+      gsap.from(cards, {
         opacity: 0,
         x: -60,
         duration: 0.8,
@@ -78,7 +83,7 @@ const ProjectShowcase = () =>{
           start: 'top 80%',
         },
       })
-    }, { scope: rowRef })
+    }, { scope: rowRef, dependencies: [isMobile] })
 
        const handleTilt = (e) => {
         const el = e.currentTarget
