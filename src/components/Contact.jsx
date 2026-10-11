@@ -116,15 +116,15 @@ const Contact = () => {
 
     try {
       await emailjs.send(
-        import.meta.env.EMAILJS_SERVICE_ID,
-        import.meta.env.EMAILJS_TEMPLATE_ID,
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
         {
           from_name: formData.name,
           from_email: formData.email,
           message: formData.message,
-          to_email: import.meta.env.EMAILJS_TO_EMAIL,
+          to_email: import.meta.env.VITE_EMAILJS_TO_EMAIL,
         },
-        import.meta.env.EMAILJS_PUBLIC_KEY,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
       )
 
       setSubmitted(true)
