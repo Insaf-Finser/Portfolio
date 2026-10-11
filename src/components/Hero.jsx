@@ -172,7 +172,7 @@ const Hero = ({ start = true }) => {
           scale: 1,
           xPercent:0,
           duration: 0.18,
-          stagger: 0.18,
+          stagger: 0.08,
           ease: 'back.out(1.7)',
         })
         .to('.hero-fade', { opacity: 1, duration: 0.25, stagger: 0.08 }, 0)

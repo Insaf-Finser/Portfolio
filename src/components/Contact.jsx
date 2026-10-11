@@ -116,15 +116,15 @@ const Contact = () => {
 
     try {
       await emailjs.send(
-        'service_twdhslq',
-        'template_p4ang6o',
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
         {
           from_name: formData.name,
           from_email: formData.email,
           message: formData.message,
-          to_email: 'insaffinser@gmail.com',
+          to_email: import.meta.env.VITE_EMAILJS_TO_EMAIL,
         },
-        '_-Jjujg3TZi-lHVXt',
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
       )
 
       setSubmitted(true)
@@ -342,6 +342,12 @@ const Contact = () => {
           <p className="max-w-l wrap-break-word font-geist text-xs text-muted sm:text-sm">
             &copy; 2026 Insaf Finser. All rights reserved. | Crafted with passion and code.
           </p>
+          <a
+            href="/privacy"
+            className="mt-2 w-fit font-geist text-xs text-muted underline underline-offset-4 transition-colors hover:text-ink"
+          >
+            Privacy policy
+          </a>
         </div>
         <ul className=" md:px-8 flex max-w-full list-none flex-wrap items-center justify-center gap-1 p-0 text-accent md:justify-end">
           {socialLinks.map((link) => (

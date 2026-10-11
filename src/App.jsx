@@ -11,6 +11,7 @@ import NavMenu from './components/NavMenu'
 import SplashScreen from './components/SplashScreen'
 import GlobalCursor from './components/GlobalCursor'
 import NotFound from './components/NotFound'
+import Privacy from './components/Privacy'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -190,7 +191,9 @@ const App = () => {
   const pathname = window.location.pathname.replace(/\/+$/, '') || '/'
   const isPortfolioPath = pathname === '/' || pathname === '/index.html'
 
-  return isPortfolioPath ? <PortfolioApp /> : <NotFound />
+  if (isPortfolioPath) return <PortfolioApp />
+  if (pathname === '/privacy') return <Privacy />
+  return <NotFound />
 }
 
 export default App
