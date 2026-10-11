@@ -3,6 +3,7 @@ import Lenis from '@studio-freight/lenis'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useEffect, useState } from 'react'
+import { Analytics } from '@vercel/analytics/react'
 import ProjectShowcase from './components/ProjectShowcase'
 import Hero from './components/Hero'
 import About from './components/About'
@@ -182,7 +183,7 @@ const PortfolioApp = () => {
         
       </main>
 
-      
+      <Analytics />
     </>
   )
 }
